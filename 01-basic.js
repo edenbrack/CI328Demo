@@ -1,16 +1,4 @@
-function main() {
-
-    var config = {
-        type: Phaser.AUTO,
-        width: 800,
-        height: 600,
-        scene: {
-            create: create
-        }
-    };
-
-    var game = new Phaser.Game(config);
-}
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-game', { preload: preload, create: create });
 
 function preload() {
     game.load.image('kitchen', 'images/kitchen.png');
