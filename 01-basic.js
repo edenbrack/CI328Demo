@@ -13,9 +13,9 @@ function main() {
 }
 
 function preload() {
-    game.load.image('kitchen', 'images/kitchen.png);
-    game.load.image('diningroom', 'images/diningroom.png);
-    game.load.image('party', 'images/xmas.png);
+    game.load.image('kitchen', 'images/kitchen.png');
+    game.load.image('diningroom', 'images/diningroom.png');
+    game.load.image('party', 'images/xmas.png');
 }
 
 function create() {
