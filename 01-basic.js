@@ -1,5 +1,3 @@
-var game;
-
 function main() {
 
     var config = {
@@ -11,7 +9,7 @@ function main() {
         }
     };
 
-    game = new Phaser.Game(config);
+    var game = new Phaser.Game(config);
 }
 
 function preload() {
@@ -23,5 +21,5 @@ function preload() {
 function create() {
     var text = this.add.text(50, 50, "Phaser is working!", { fontSize: '32px', fill: '#FFF' });
         
-    game.add.sprite(0,0, 'party');
+    game.add.sprite(0, 0, 'party');
 }
