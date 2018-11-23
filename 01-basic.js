@@ -1,3 +1,5 @@
+var game;
+
 function main() {
 
     var config = {
@@ -9,7 +11,7 @@ function main() {
         }
     };
 
-    var game = new Phaser.Game(config);
+    game = new Phaser.Game(config);
 }
 
 function preload() {
