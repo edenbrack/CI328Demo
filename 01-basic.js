@@ -30,14 +30,14 @@ function create() {
 
 function update() {
 
-    if (key.left.isDown)
+    if (key.input.keyboard.isDown(Phaser.Keyboard.LEFT))
     {
-        mySprite.x--;
+        mySprite.x -= 4;
     }
-    else if (key.right.isDown)
+    else if (key.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
     {
-        mySprite.x++;
-        mySprite.animations.play('right');
+        mySprite.x += 4;
+//         mySprite.animations.play('right');
     }
 
 }
