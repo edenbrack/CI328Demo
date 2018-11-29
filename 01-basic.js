@@ -19,6 +19,7 @@ function create() {
     var bgParty = game.add.image(0, 0, 'party');
     
     var mySprite = game.add.sprite(0, 0, 'character');
+    mySprite.scale.setTo(5, 5);
     
     up = game.input.keyboard.addKey(Phaser.Keyboard.UP);
     down = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
