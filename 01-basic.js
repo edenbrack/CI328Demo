@@ -29,13 +29,13 @@ function create() {
     
     sprite.frame = 0;
     
-    sprite.animations.add('right', [1, 2, 3, 4, 5, 6], 10, true);
+//     sprite.animations.add('right', [1, 2, 3, 4, 5, 6], 10, true);
     
-    sprite.animations.play('right');
+//     sprite.animations.play('right');
     
-    sprite.animations.stop();
+//     sprite.animations.stop();
     
-    sprite.frame = 0;
+//     sprite.frame = 0;
 }
 
 function update() {
