@@ -10,12 +10,22 @@ function preload() {
     game.load.spritesheet('character', 'images/sprite.png', 32, 63, 7);
 }
 
+var up;
+var down;
+var left;
+var right;
+
 function create() {
     var text = this.add.text(50, 50, "Phaser is working!", { fontSize: '32px', fill: '#FFF' });
     
     var bgParty = game.add.image(0, 0, 'party');
     
     var sprite = game.add.sprite(0, 0, 'character');
+    
+    up = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+    down = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+    left = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+    right = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
     
     sprite.frame = 0;
     
@@ -26,4 +36,26 @@ function create() {
     sprite.animations.stop();
     
     sprite.frame = 0;
+}
+
+function update() {
+
+    if (up.isDown)
+    {
+        sprite.y--;
+    }
+    else if (down.isDown)
+    {
+        sprite.y++;
+    }
+
+    if (left.isDown)
+    {
+        sprite.x--;
+    }
+    else if (right.isDown)
+    {
+        sprite.x++;
+    }
+
 }
