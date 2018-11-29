@@ -10,10 +10,7 @@ function preload() {
     game.load.spritesheet('character', 'images/sprite.png', 32, 63, 7);
 }
 
-var up;
-var down;
-var left;
-var right;
+var key = game.input.keyboard.createCursorKeys();
 
 function create() {
     var bgParty = game.add.image(0, 0, 'party');
@@ -21,38 +18,24 @@ function create() {
     var mySprite = game.add.sprite(0, 0, 'character');
     mySprite.scale.setTo(5, 5);
     
-    up = game.input.keyboard.addKey(Phaser.Keyboard.UP);
-    down = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
-    left = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
-    right = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
+//     mySprite.frame = 0;
     
-    mySprite.frame = 0;
-    
-    mySprite.animations.add('right', [1, 2, 3, 4, 5, 6], 10, true);
+//     mySprite.animations.add('right', [1, 2, 3, 4, 5, 6], 10, true);
     
 //     mySprite.animations.play('right');
     
-    mySprite.animations.stop();
+//     mySprite.animations.stop();
     
-    mySprite.frame = 0;
+//     mySprite.frame = 0;
 }
 
 function update() {
 
-    if (up.isDown)
-    {
-        mySprite.y--;
-    }
-    else if (down.isDown)
-    {
-        mySprite.y++;
-    }
-
-    if (left.isDown)
+    if (key.left.isDown)
     {
         mySprite.x--;
     }
-    else if (right.isDown)
+    else if (key.right.isDown)
     {
         mySprite.x++;
         mySprite.animations.play('right');
