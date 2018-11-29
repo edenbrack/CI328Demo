@@ -39,6 +39,7 @@ function update() {
     else if (key.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
     {
         mySprite.x += 4;
+        console.log('help me');
 //         mySprite.animations.play('right');
     }
 
