@@ -29,7 +29,7 @@ function create() {
     
     mySprite.animations.add('right', [1, 2, 3, 4, 5, 6], 10, true);
     
-    mySprite.animations.play('right');
+//     mySprite.animations.play('right');
     
     mySprite.animations.stop();
     
@@ -54,6 +54,7 @@ function update() {
     else if (right.isDown)
     {
         mySprite.x++;
+        mySprite.animations.play('right');
     }
 
 }
