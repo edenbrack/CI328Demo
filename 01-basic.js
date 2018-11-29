@@ -40,20 +40,20 @@ function update() {
 
     if (up.isDown)
     {
-        sprite.y--;
+        mySprite.y--;
     }
     else if (down.isDown)
     {
-        sprite.y++;
+        mySprite.y++;
     }
 
     if (left.isDown)
     {
-        sprite.x--;
+        mySprite.x--;
     }
     else if (right.isDown)
     {
-        sprite.x++;
+        mySprite.x++;
     }
 
 }
