@@ -17,7 +17,13 @@ function create() {
     
     var sprite = game.add.sprite(0, 0, 'character');
     
+    sprite.frame = 0;
+    
     sprite.animations.add('right', [1, 2, 3, 4, 5, 6], 10, true);
     
     sprite.animations.play('right');
+    
+    sprite.animations.stop();
+    
+    sprite.frame = 0;
 }
