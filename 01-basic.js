@@ -10,10 +10,12 @@ function preload() {
     game.load.spritesheet('character', 'images/sprite.png', 32, 63, 7);
 }
 
+var mySprite;
+
 function create() {
     var bgParty = game.add.image(0, 0, 'party');
     
-    var mySprite = game.add.sprite(0, 0, 'character');
+    mySprite = game.add.sprite(0, 0, 'character');
     mySprite.scale.setTo(5, 5);
     
 //     mySprite.frame = 0;
