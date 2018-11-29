@@ -10,8 +10,6 @@ function preload() {
     game.load.spritesheet('character', 'images/sprite.png', 32, 63, 7);
 }
 
-var key = game.input.keyboard.createCursorKeys();
-
 function create() {
     var bgParty = game.add.image(0, 0, 'party');
     
@@ -27,6 +25,7 @@ function create() {
 //     mySprite.animations.stop();
     
 //     mySprite.frame = 0;
+    var key = game.input.keyboard.createCursorKeys();
 }
 
 function update() {
