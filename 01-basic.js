@@ -16,4 +16,6 @@ function create() {
     var bgParty = game.add.image(0, 0, 'party');
     
     var sprite = game.add.sprite(0, 0, 'character');
+    
+    sprite.animations.add('left', [1, 2, 3, 4, 5, 6], 10, true);
 }
