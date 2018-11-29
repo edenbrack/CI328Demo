@@ -18,22 +18,22 @@ var right;
 function create() {
     var bgParty = game.add.image(0, 0, 'party');
     
-    var sprite = game.add.sprite(0, 0, 'character');
+    var mySprite = game.add.sprite(0, 0, 'character');
     
     up = game.input.keyboard.addKey(Phaser.Keyboard.UP);
     down = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
     left = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
     right = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
     
-    sprite.frame = 0;
+    mySprite.frame = 0;
     
-    sprite.animations.add('right', [1, 2, 3, 4, 5, 6], 10, true);
+    mySprite.animations.add('right', [1, 2, 3, 4, 5, 6], 10, true);
     
-    sprite.animations.play('right');
+    mySprite.animations.play('right');
     
-    sprite.animations.stop();
+    mySprite.animations.stop();
     
-    sprite.frame = 0;
+    mySprite.frame = 0;
 }
 
 function update() {
