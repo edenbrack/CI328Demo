@@ -16,8 +16,6 @@ var left;
 var right;
 
 function create() {
-    var text = this.add.text(50, 50, "Phaser is working!", { fontSize: '32px', fill: '#FFF' });
-    
     var bgParty = game.add.image(0, 0, 'party');
     
     var sprite = game.add.sprite(0, 0, 'character');
