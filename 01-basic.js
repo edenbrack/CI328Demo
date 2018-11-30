@@ -16,7 +16,7 @@ var mySprite;
 function create() {
     var bgParty = game.add.image(0, 0, 'party');
     
-    mySprite = game.add.sprite(0, 400, 'character');
+    mySprite = game.add.sprite(0, 300, 'character');
     mySprite.scale.setTo(5, 5);
     
     mySprite.frame = 0;
