@@ -11,7 +11,7 @@ function preload() {
 }
 
 var mySprite;
-var key;
+// var key;
 
 function create() {
     var bgParty = game.add.image(0, 0, 'party');
@@ -28,16 +28,16 @@ function create() {
 //     mySprite.animations.stop();
     
 //     mySprite.frame = 0;
-    key = game.input.keyboard.createCursorKeys();
+//     key = game.input.keyboard.createCursorKeys();
 }
 
 function update() {
 
-    if (key.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
     {
         mySprite.x -= 4;
     }
-    else if (key.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
     {
         mySprite.x += 4;
         console.log('help me');
