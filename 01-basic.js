@@ -41,6 +41,7 @@ function update() {
     {
         mySprite.x += 4;
         console.log('help me');
+        mySprite.animations.play('right');
     }
 
 }
