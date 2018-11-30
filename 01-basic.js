@@ -4,17 +4,19 @@ function main() {
 }
 
 function preload() {
-    game.load.image('kitchen', 'images/kitchen.png');
-    game.load.image('diningroom', 'images/diningroom.png');
-    game.load.image('party', 'images/xmas.png');
+    game.load.image('bedroom', 'images/background1.png');
+    game.load.image('kitchen', 'images/background2.png');
+    game.load.image('diningroom', 'images/background3.png');
+    game.load.image('outdoors', 'images/background4.png');
+    game.load.image('party', 'images/background5.png');
     game.load.spritesheet('character', 'images/sprite.png', 32, 63, 7);
 }
 
 var mySprite;
-var bgParty;
+var bg1;
 
 function create() {
-    bgParty = game.add.image(0, 0, 'party');
+    bg1 = game.add.image(0, 0, 'bedroom');
 
     mySprite = game.add.sprite(0, 200, 'character');
     mySprite.anchor.setTo(.5, 0);
@@ -61,8 +63,8 @@ function update() {
 
 function nextLevel(levelNum) {
     // if ('bg'+levelNum+'.png'+1<=5){
-    bgParty.destroy();
-    game.add.image(0, 0, 'diningroom');
+    bg1.destroy();
+    game.add.image(0, 0, 'kitchen');
     mySprite.x = 0;
     mySprite.bringToTop();
     // }
