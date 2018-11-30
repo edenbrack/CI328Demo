@@ -11,11 +11,11 @@ function preload() {
 }
 
 var mySprite;
-// var key;
+var bgParty;
 
 function create() {
-    var bgParty = game.add.image(0, 0, 'party');
-    
+    bgParty = game.add.image(0, 0, 'party');
+
     mySprite = game.add.sprite(0, 200, 'character');
     mySprite.anchor.setTo(.5, 0);
     mySprite.scale.setTo(5, 5);
@@ -52,4 +52,18 @@ function update() {
         mySprite.x += 4;
         mySprite.animations.play('walk');
     }
+
+    if (mySprite.x >= 800)
+    {
+        nextLevel();
+    }
+}
+
+function nextLevel(levelNum) {
+    // if ('bg'+levelNum+'.png'+1<=5){
+    bgParty.destroy();
+    game.add.image(0, 0, 'diningroom');
+    mySprite.x = 0;
+    mySprite.bringToTop();
+    // }
 }
