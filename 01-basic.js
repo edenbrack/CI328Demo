@@ -16,7 +16,7 @@ var mySprite;
 function create() {
     var bgParty = game.add.image(0, 0, 'party');
     
-    mySprite = game.add.sprite(0, 300, 'character');
+    mySprite = game.add.sprite(0, 200, 'character');
     mySprite.scale.setTo(5, 5);
     
     mySprite.frame = 0;
@@ -40,7 +40,6 @@ function update() {
     else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
     {
         mySprite.x += 4;
-        console.log('help me');
         mySprite.animations.play('right');
     }
 
