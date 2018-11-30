@@ -28,15 +28,22 @@ function create() {
     mySprite.animations.stop();
     
     mySprite.frame = 0;
-//     key = game.input.keyboard.createCursorKeys();
 }
 
 function update() {
+    
+    if (game.input.keyboard.downDuration(Phaser.Keyboard.LEFT, 50)) 
+    {
+        mySprite.scale.x *= -1;
+    }
+    else if (game.input.keyboard.downDuration(Phaser.Keyboard.RIGHT, 50))
+    {
+        mySprite.scale.x *= -1;
+    }
 
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
     {
         mySprite.x -= 4;
-        mySprite.scale.x *= -1;
         mySprite.animations.play('walk');
     }
     else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
@@ -44,5 +51,4 @@ function update() {
         mySprite.x += 4;
         mySprite.animations.play('walk');
     }
-
 }
