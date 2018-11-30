@@ -1,4 +1,4 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-game', { preload: preload, create: create });
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-game', { preload: preload, create: create, update: update });
 
 function main() {
 }
@@ -11,6 +11,7 @@ function preload() {
 }
 
 var mySprite;
+var key;
 
 function create() {
     var bgParty = game.add.image(0, 0, 'party');
@@ -27,7 +28,7 @@ function create() {
 //     mySprite.animations.stop();
     
 //     mySprite.frame = 0;
-    var key = game.input.keyboard.createCursorKeys();
+    key = game.input.keyboard.createCursorKeys();
 }
 
 function update() {
