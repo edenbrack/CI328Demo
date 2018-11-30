@@ -21,9 +21,9 @@ function create() {
     
     mySprite.frame = 0;
     
-    mySprite.animations.add('right', [1, 2, 3, 4, 5, 6], 10, true);
+    mySprite.animations.add('walk', [1, 2, 3, 4, 5, 6], 10, true);
     
-    mySprite.animations.play('right');
+    mySprite.animations.play('walk');
     
     mySprite.animations.stop();
     
@@ -36,11 +36,13 @@ function update() {
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
     {
         mySprite.x -= 4;
+        mySprite.scale.x *= -1;
+        mySprite.animations.play('walk');
     }
     else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
     {
         mySprite.x += 4;
-        mySprite.animations.play('right');
+        mySprite.animations.play('walk');
     }
 
 }
