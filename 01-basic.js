@@ -39,7 +39,7 @@ function update() {
     }
     else if (game.input.keyboard.downDuration(Phaser.Keyboard.RIGHT, 50))
     {
-        mySprite.scale.x *= -1;
+        mySprite.scale.x *= 1;
     }
 
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
