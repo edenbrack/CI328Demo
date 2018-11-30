@@ -19,15 +19,15 @@ function create() {
     mySprite = game.add.sprite(0, 0, 'character');
     mySprite.scale.setTo(5, 5);
     
-//     mySprite.frame = 0;
+    mySprite.frame = 0;
     
-//     mySprite.animations.add('right', [1, 2, 3, 4, 5, 6], 10, true);
+    mySprite.animations.add('right', [1, 2, 3, 4, 5, 6], 10, true);
     
-//     mySprite.animations.play('right');
+    mySprite.animations.play('right');
     
-//     mySprite.animations.stop();
+    mySprite.animations.stop();
     
-//     mySprite.frame = 0;
+    mySprite.frame = 0;
 //     key = game.input.keyboard.createCursorKeys();
 }
 
@@ -41,7 +41,6 @@ function update() {
     {
         mySprite.x += 4;
         console.log('help me');
-//         mySprite.animations.play('right');
     }
 
 }
