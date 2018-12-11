@@ -11,7 +11,13 @@ var bg2;
 var bg3;
 var bg4;
 var bg5;
-var i;
+var interactCount = 0;
+var item1;
+var item2;
+var item3;
+var item4;
+var item5;
+var previousItem;
 
 function preload() {
     bg1 = game.load.image('bg1', 'images/background1.png');
@@ -19,14 +25,20 @@ function preload() {
     bg3 = game.load.image('bg3', 'images/background3.png');
     bg4 = game.load.image('bg4', 'images/background4.png');
     bg5 = game.load.image('bg5', 'images/background5.png');
-
+    
     // Load relevant portion of spritesheet.
     game.load.spritesheet('character', 'images/sprite.png', 32, 63, 7);
+    game.load.spritesheet('item1', 'images/background5.png', 32, 63, 2);
+    game.load.spritesheet('item2', 'images/background5.png', 80, 80, 2);
+    game.load.spritesheet('item3', 'images/background5.png', 32, 63, 2);
+    game.load.spritesheet('item4', 'images/background5.png', 32, 63, 2);
+    game.load.spritesheet('item5', 'images/background4.png', 32, 63, 2);
 }
 
 function create() {
-    // bgLayer = game.add.group();
     game.add.image(0, 0, 'bg1');
+    game.add.sprite (155, 300, 'item1');
+    // game.add.sprite (700, 50, 'item2');
 
     mySprite = game.add.sprite(100, 200, 'character');
     mySprite.anchor.setTo(.5, 0);
@@ -69,25 +81,35 @@ function update() {
     {
         nextRoom();
     }
+
+    //If the sprite.x is in bg1 and between interaction1.x and interaction1.x+interaction1.width fire interact function. 
+    if (mySprite.x >= 400) {
+        interact();
+}
 }
 
 function nextRoom() {
     if (bgCount <=4) {
         // var bgToRemove = 'bg' + bgCount;
         // bgToRemove.destroy();
-        console.log(bgCount);
+        console.log('That was background #' + bgCount);
         bgCount++;
         var bgToDisplay = 'bg' + bgCount;
         game.add.image(0, 0, bgToDisplay);
-        console.log(bgCount);
+        console.log('This is background #' + bgCount);
         mySprite.x = 0;
         mySprite.bringToTop();
     }
-    //Replace background image and reset sprite to starting position.
-    // if ('bg'+levelNum+'.png'+1<=5){
-    // bg1.destroy();
-    // game.add.image(0, 0, 'kitchen');
-    // mySprite.x = 0;
-    // mySprite.bringToTop();
-    // }
+}
+
+function interact() {
+    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && interactCount<=1) {
+        console.log(interactCount);
+        interactCount++;
+        previousItem = 'originalItem' + interactCount;
+        var itemToDisplay = 'resultItem' + interactCount;
+        game.add.image(previousItem.x, previousItem.y, itemToDisplay);
+        console.log('This is interaction #' + interactCount);
+        mySprite.bringToTop();
+    }
 }
