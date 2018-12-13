@@ -19,28 +19,28 @@ var item5;
 var dayCount = 1;
 
 function preload() {
-    room1 = game.load.image('room1', 'images/background1.png');
-    room2 = game.load.image('room2', 'images/background2.png');
-    room3 = game.load.image('room3', 'images/background3.png');
-    room4 = game.load.image('room4', 'images/background4.png');
-    room5 = game.load.image('room5', 'images/background5.png');
+    room1 = game.load.image('rm1', 'images/background1.png');
+    room2 = game.load.image('rm2', 'images/background2.png');
+    room3 = game.load.image('rm3', 'images/background3.png');
+    room4 = game.load.image('rm4', 'images/background4.png');
+    room5 = game.load.image('rm5', 'images/background5.png');
     
     // Load relevant portion of spritesheet.
     game.load.spritesheet('character', 'images/sprite.png', 32, 63, 7);
-    game.load.spritesheet('item1', 'images/placeholder.jpg', 32, 63, 2);
-    game.load.spritesheet('item2', 'images/placeholder.jpg', 80, 80, 2);
-    game.load.spritesheet('item3', 'images/placeholder.jpg', 32, 63, 2);
-    game.load.spritesheet('item4', 'images/placeholder.jpg', 200, 100, 2);
-    game.load.spritesheet('item5', 'images/placeholder.jpg', 32, 63, 2);
+    game.load.spritesheet('itm1', 'images/placeholder.jpg', 32, 63, 2);
+    game.load.spritesheet('itm2', 'images/placeholder.jpg', 80, 80, 2);
+    game.load.spritesheet('itm3', 'images/placeholder.jpg', 32, 63, 2);
+    game.load.spritesheet('itm4', 'images/placeholder.jpg', 200, 100, 2);
+    game.load.spritesheet('itm5', 'images/placeholder.jpg', 32, 63, 2);
 }
 
 function create() {
-    game.add.image(0, 0, 'room1');
-    item1 =  game.add.sprite (155, 300, 'item1');
-    item2 = game.add.sprite (700, 50, 'item2');
-    item3 = game.add.sprite (350, 400, 'item3');
-    item4 = game.add.sprite (150, 200, 'item4');
-    item5 = game.add.sprite (155, 300, 'item5');
+    game.add.image(0, 0, 'rm1');
+    item1 =  game.add.sprite (155, 300, 'itm1');
+    item2 = game.add.sprite (700, 50, 'itm2');
+    item3 = game.add.sprite (350, 400, 'itm3');
+    item4 = game.add.sprite (150, 200, 'itm4');
+    item5 = game.add.sprite (155, 300, 'itm5');
     item1.visible = true;
     item2.visible = false;
     item3.visible = false;
@@ -92,10 +92,10 @@ function update() {
     }
 
     //If the left side of the sprite is greater than the right side of the interactive item or if the right side of the sprite is less than the left side of the interactive item. If neither of these are true, then the interact function will be fired.
-    if (! (mySprite.x > item.x + item.width || mySprite.x + mySprite.width < item.x)) {
-        interact();
-        // console.log('codebar help me');
-    }
+    // if (! (mySprite.x > item1.x + item1.width || mySprite.x + mySprite.width < item1.x)) {
+    //     interact();
+    //     // console.log('codebar help me');
+    // }
 
     if (count == 5) {
         gameOver();
@@ -106,8 +106,11 @@ function nextRoom() {
     if (count <=4) {
         console.log('That was room #' + count);
         count++;
-        var roomToDisplay = 'room' + count;
+        var roomToDisplay = 'rm' + count;
         game.add.image(0, 0, roomToDisplay);
+        // item = item + count
+        var currentItem = window[item];
+        console.log(currentItem);
         console.log(roomToDisplay);
         console.log('This is room #' + count);
         nextItem();
@@ -120,21 +123,22 @@ function nextRoom() {
 }
 
 function nextItem() {
-    item.visible = false;
-    count++;
-    item.visible = true;
+    item1.visible = false;
+    // count++;
+    item2.visible = true;
     console.log('This is item #' + count);
+    item2.bringToTop();
 }
     //If the spacebar is pressed and the item count is less than or equal to 5, 
-function interact() {
-    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && count<=5) {
-        console.log('This item is #' + count);
-        count++;
-        var itemToDisplay = 'resultItem' + count;
-        console.log('The next item is #' + count);
-        mySprite.bringToTop();
-    }
-}
+// function interact() {
+//     if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && count<=5) {
+//         console.log('This item is #' + count);
+//         count++;
+//         var itemToDisplay = 'resultItem' + count;
+//         console.log('The next item is #' + count);
+//         mySprite.bringToTop();
+//     }
+// }
 
 function timeLoop() {
     count=0;
