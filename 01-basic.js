@@ -10,12 +10,10 @@ var room1;
 var room2;
 var room3;
 var room4;
-var room5;
 var item1;
 var item2;
 var item3;
 var item4;
-var item5;
 var items;
 var dayCount = 1;
 var itemCount = count - 1;
@@ -25,17 +23,15 @@ var roomToDisplay;
 function preload() {
     room1 = game.load.image('rm1', 'images/background1.png');
     room2 = game.load.image('rm2', 'images/background2.png');
-    room3 = game.load.image('rm3', 'images/background3.png');
-    room4 = game.load.image('rm4', 'images/background4.png');
-    room5 = game.load.image('rm5', 'images/background5.png');
+    room3 = game.load.image('rm3', 'images/background4.png');
+    room4 = game.load.image('rm4', 'images/background5.png');
     
     // Load relevant portion of spritesheet.
     game.load.spritesheet('character', 'images/sprite.png', 32, 63, 7);
     game.load.spritesheet('itm1', 'images/placeholder.jpg', 80, 80, 2);
     game.load.spritesheet('itm2', 'images/placeholder.jpg', 120, 120, 2);
-    game.load.spritesheet('itm3', 'images/placeholder.jpg', 32, 63, 2);
-    game.load.spritesheet('itm4', 'images/placeholder.jpg', 200, 100, 2);
-    game.load.spritesheet('itm5', 'images/placeholder.jpg', 300, 600, 2);
+    game.load.spritesheet('itm3', 'images/placeholder.jpg', 400, 150, 2);
+    game.load.spritesheet('itm4', 'images/placeholder.jpg', 300, 600, 2);
 }
 
 function create() {
@@ -43,17 +39,15 @@ function create() {
 
     item1 = game.add.sprite (193, 445, 'itm1');
     item2 = game.add.sprite (1040, 30, 'itm2');
-    item3 = game.add.sprite (350, 400, 'itm3');
-    item4 = game.add.sprite (150, 200, 'itm4');
-    item5 = game.add.sprite (1000, 150, 'itm5');
+    item3 = game.add.sprite (800, 600, 'itm3');
+    item4 = game.add.sprite (1000, 150, 'itm4');
 
     item1.visible = true;
     item2.visible = false;
     item3.visible = false;
     item4.visible = false;
-    item5.visible = false;
 
-    items = [item1, item2, item3, item4, item5];
+    items = [item1, item2, item3, item4];
 
     console.log(items);
 
@@ -112,18 +106,18 @@ function update() {
         interact();
     }
 
-    if (interactions == 5) {
+    if (interactions == 4) {
         gameOver();
     }
 }
 
 function nextRoom() {
-    if (count <=4) {
+    if (count <=3) {
         hide();
         count++;
         show();
     }
-    else if (count=5) {
+    else if (count=4) {
         timeLoop();
     }
 }
@@ -136,7 +130,7 @@ function nextRoom() {
     // item2.bringToTop();
     //If the spacebar is pressed and the interaction count is less than 5, add 1 to the interaction count and move to item's second frame to show the result of the interaction. 
 function interact() {
-    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && interactions<5) {
+    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && interactions<4) {
         interactions++;
         console.log('You have interacted with ' + count + ' items!');
         item1.frame = 1;
