@@ -5,7 +5,6 @@ function main() {
 
 var mySprite;
 var count = 1;
-var interactions = 0;
 var room1;
 var room2;
 var room3;
@@ -18,7 +17,8 @@ var items;
 var dayCount = 1;
 var itemCount = count - 1;
 var roomToDisplay;
-
+var spacebar;
+var interactions = 0;
 
 function preload() {
     room1 = game.load.image('rm1', 'images/background1.png');
@@ -28,17 +28,17 @@ function preload() {
     
     // Load relevant portion of spritesheet.
     game.load.spritesheet('character', 'images/sprite.png', 330, 600, 8);
-    game.load.spritesheet('itm1', 'images/placeholder.jpg', 80, 80, 2);
-    game.load.spritesheet('itm2', 'images/placeholder.jpg', 120, 120, 2);
-    game.load.spritesheet('itm3', 'images/placeholder.jpg', 400, 150, 2);
-    game.load.spritesheet('itm4', 'images/placeholder.jpg', 300, 600, 2);
+    game.load.spritesheet('itm1', 'images/background5.png', 80, 80, 2);
+    game.load.spritesheet('itm2', 'images/item2.png', 120, 120, 2);
+    game.load.spritesheet('itm3', 'images/background5.png', 400, 150, 2);
+    game.load.spritesheet('itm4', 'images/background5.png', 300, 600, 2);
 }
 
 function create() {
     startRoom = game.add.image(0, 0, 'rm1');
 
     item1 = game.add.sprite (193, 445, 'itm1');
-    item2 = game.add.sprite (1040, 30, 'itm2');
+    item2 = game.add.sprite (1040, 38, 'itm2');
     item3 = game.add.sprite (800, 600, 'itm3');
     item4 = game.add.sprite (1000, 150, 'itm4');
 
@@ -49,11 +49,12 @@ function create() {
 
     items = [item1, item2, item3, item4];
 
-    console.log(items);
+    item1.frame = 0;
+    item2.frame = 0;
+    item3.frame = 0;
+    item4.frame = 0;
 
-    console.log(items[0].position);
-
-    //items[itemCount].visible = false;
+    spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     mySprite = game.add.sprite(250, 200, 'character');
     mySprite.anchor.setTo(.5, 0);
@@ -68,7 +69,7 @@ function create() {
     
     mySprite.animations.stop();
     
-    mySprite.frame = 0;
+    mySprite.frame = 1;
 }
 
 function update() {
@@ -100,14 +101,14 @@ function update() {
         nextRoom();
     }
 
-    //If the left side of the sprite is greater than the right side of the interactive item or if the right side of the sprite is less than the left side of the interactive item. If neither of these are true, then the interact function will be fired.
-    if (! (mySprite.x > items[itemCount].x + items[itemCount].width || mySprite.x + mySprite.width < items[itemCount].x)) {
-        interact();
+    if (mySprite.x > items[itemCount].x - 100 && mySprite.x < items[itemCount].x + items[itemCount].width + 100) {
+        spacebar.onDown.add(interact);
+        console.log('am i working?');
     }
 
-    if (interactions == 4) {
-        gameOver();
-    }
+    // if (interactions = 5) {
+    //     gameOver();
+    // }
 }
 
 function nextRoom() {
@@ -121,19 +122,10 @@ function nextRoom() {
     }
 }
 
-        
-    // item1.visible = false;
-    // console.log('This is item #' + count);
-    // item2.visible = true;
-    // // console.log(item);
-    // item2.bringToTop();
-    //If the spacebar is pressed and the interaction count is less than 5, add 1 to the interaction count and move to item's second frame to show the result of the interaction. 
 function interact() {
-    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) && interactions<4) {
         interactions++;
-        console.log('You have interacted with ' + count + ' items!');
-        item1.frame = 1;
-    }
+        items[itemCount].frame = 1;
+        console.log('the item count is ' + itemCount);
 }
 
 function timeLoop() {
