@@ -27,7 +27,7 @@ function preload() {
     room4 = game.load.image('rm4', 'images/background5.png');
     
     // Load relevant portion of spritesheet.
-    game.load.spritesheet('character', 'images/sprite.png', 32, 63, 7);
+    game.load.spritesheet('character', 'images/sprite.png', 330, 600, 8);
     game.load.spritesheet('itm1', 'images/placeholder.jpg', 80, 80, 2);
     game.load.spritesheet('itm2', 'images/placeholder.jpg', 120, 120, 2);
     game.load.spritesheet('itm3', 'images/placeholder.jpg', 400, 150, 2);
@@ -55,15 +55,14 @@ function create() {
 
     //items[itemCount].visible = false;
 
-    mySprite = game.add.sprite(100, -50, 'character');
+    mySprite = game.add.sprite(250, 200, 'character');
     mySprite.anchor.setTo(.5, 0);
-    mySprite.scale.setTo(13, 13);
     
     mySprite.frame = 0;
 
-    mySprite.animations.add('idle', [0], 10, true);
+    mySprite.animations.add('idle', [3], 10, true);
     
-    mySprite.animations.add('walk', [1, 2, 3, 4, 5, 6], 10, true);
+    mySprite.animations.add('walk', [1, 2, 3, 4, 5, 6, 7, 8], 15, true);
     
     mySprite.animations.play('walk');
     
@@ -77,7 +76,7 @@ function update() {
     //Move the sprite 4px/frame and play walking animation if the left or right key is down.
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
     {
-        mySprite.x -= 10;
+        mySprite.x -= 7;
         mySprite.animations.play('walk');
         mySprite.scale.x *= -1;
         // mySprite.scale.setTo(-mySprite.width, mySprite.height);
@@ -85,7 +84,7 @@ function update() {
     }
     else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
     {
-        mySprite.x += 10;
+        mySprite.x += 7;
         mySprite.animations.play('walk');
         mySprite.scale.x *= 1;
         // mySprite.scale.setTo(mySprite.width, mySprite.height);
