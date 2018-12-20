@@ -19,28 +19,31 @@ var itemCount = count - 1;
 var roomToDisplay;
 var spacebar;
 var interactions = 0;
+var walkLeftButton;
+var walkRightButton;
 
 function preload() {
     room1 = game.load.image('rm1', 'images/background1.png');
     room2 = game.load.image('rm2', 'images/background2.png');
-    room3 = game.load.image('rm3', 'images/background4.png');
-    room4 = game.load.image('rm4', 'images/background5.png');
+    room3 = game.load.image('rm3', 'images/background3.png');
+    room4 = game.load.image('rm4', 'images/background4.png');
+    game.load.image('invisibleButton', 'images/placeholder.png');
     
     // Load relevant portion of spritesheet.
     game.load.spritesheet('character', 'images/sprite.png', 330, 600, 8);
-    game.load.spritesheet('itm1', 'images/background5.png', 80, 80, 2);
+    game.load.spritesheet('itm1', 'images/item1.png', 100, 120, 2);
     game.load.spritesheet('itm2', 'images/item2.png', 120, 120, 2);
-    game.load.spritesheet('itm3', 'images/background5.png', 400, 150, 2);
-    game.load.spritesheet('itm4', 'images/background5.png', 300, 600, 2);
+    game.load.spritesheet('itm3', 'images/item3.png', 80, 90, 2);
+    game.load.spritesheet('itm4', 'images/item4.png', 210, 600, 2);
 }
 
 function create() {
     startRoom = game.add.image(0, 0, 'rm1');
 
-    item1 = game.add.sprite (193, 445, 'itm1');
+    item1 = game.add.sprite (193, 415, 'itm1');
     item2 = game.add.sprite (1040, 38, 'itm2');
-    item3 = game.add.sprite (800, 600, 'itm3');
-    item4 = game.add.sprite (1000, 150, 'itm4');
+    item3 = game.add.sprite (800, 530, 'itm3');
+    item4 = game.add.sprite (1000, 210, 'itm4');
 
     item1.visible = true;
     item2.visible = false;
@@ -59,40 +62,31 @@ function create() {
     mySprite = game.add.sprite(250, 200, 'character');
     mySprite.anchor.setTo(.5, 0);
     
-    mySprite.frame = 0;
-
-    mySprite.animations.add('idle', [3], 10, true);
-    
     mySprite.animations.add('walk', [1, 2, 3, 4, 5, 6, 7, 8], 15, true);
-    
-    mySprite.animations.play('walk');
-    
-    mySprite.animations.stop();
-    
-    mySprite.frame = 1;
+
+    walkLeftButton = game.add.button(0, 0, 'invisibleButton', clickMe, null);
+    walkLeftButton.inputEnabled = true;
+    walkLeftButton.events.onInputDown.add(walkLeft, this);
+    walkLeftButton.events.onInputUp.add(idle, this);
+
+    walkRightButton = game.add.button(game.world.centerX, 0, 'invisibleButton', clickMe, null);
+    walkRightButton.inputEnabled = true;
+    walkRightButton.events.onInputDown.add(walkRight, this);
+    walkRightButton.events.onInputUp.add(idle, this);
 }
 
 function update() {
 
-    //Move the sprite 4px/frame and play walking animation if the left or right key is down.
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
     {
-        mySprite.x -= 7;
-        mySprite.animations.play('walk');
-        mySprite.scale.x *= -1;
-        // mySprite.scale.setTo(-mySprite.width, mySprite.height);
-        // mySprite.animations.play('walkLeft');
+        walkLeft();
     }
     else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
     {
-        mySprite.x += 7;
-        mySprite.animations.play('walk');
-        mySprite.scale.x *= 1;
-        // mySprite.scale.setTo(mySprite.width, mySprite.height);
-        // mySprite.animations.play('walkRight');
+        walkRight();
     }
     else {
-        mySprite.animations.play('idle');
+        idle();
     }
 
     //If the sprite makes it to the far side of the viewport (800px far), call nextRoom function.
@@ -101,14 +95,35 @@ function update() {
         nextRoom();
     }
 
-    if (mySprite.x > items[itemCount].x - 100 && mySprite.x < items[itemCount].x + items[itemCount].width + 100) {
+    if (mySprite.x > items[itemCount].x - 50 && mySprite.x < items[itemCount].x + items[itemCount].width + 50) {
+    // if (mySprite.x > 500 && mySprite.x < 900) {
         spacebar.onDown.add(interact);
-        console.log('am i working?');
+        console.log('In interaction zone!');
     }
 
     // if (interactions = 5) {
     //     gameOver();
     // }
+}
+
+function clickMe() {
+    console.log('Clicked!');
+}
+function walkLeft() {
+    mySprite.x -= 7;
+    mySprite.animations.play('walk');
+    mySprite.scale.x = -1;
+}
+
+function walkRight() {
+    mySprite.x += 7;
+    mySprite.animations.play('walk');
+    mySprite.scale.x = 1;
+}
+
+function idle() {
+    // mySprite.animations.play('idle');
+    mySprite.frame = 2;
 }
 
 function nextRoom() {
@@ -148,6 +163,7 @@ function show() {
     game.add.image(0, 0, roomToDisplay);
     items[itemCount].visible = true;
     items[itemCount].bringToTop();
+    items[itemCount].events.onInputDown.add(interact, this);
     mySprite.x = 0;
     mySprite.bringToTop();
 }
