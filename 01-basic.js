@@ -27,7 +27,6 @@ function preload() {
     room2 = game.load.image('rm2', 'images/background2.png');
     room3 = game.load.image('rm3', 'images/background3.png');
     room4 = game.load.image('rm4', 'images/background4.png');
-    game.load.image('invisibleButton', 'images/placeholder.png');
     
     // Load relevant portion of spritesheet.
     game.load.spritesheet('character', 'images/sprite.png', 330, 600, 8);
@@ -63,25 +62,15 @@ function create() {
     mySprite.anchor.setTo(.5, 0);
     
     mySprite.animations.add('walk', [1, 2, 3, 4, 5, 6, 7, 8], 15, true);
-
-    walkLeftButton = game.add.button(0, 0, 'invisibleButton', clickMe, null);
-    walkLeftButton.inputEnabled = true;
-    walkLeftButton.events.onInputDown.add(walkLeft, this);
-    walkLeftButton.events.onInputUp.add(idle, this);
-
-    walkRightButton = game.add.button(game.world.centerX, 0, 'invisibleButton', clickMe, null);
-    walkRightButton.inputEnabled = true;
-    walkRightButton.events.onInputDown.add(walkRight, this);
-    walkRightButton.events.onInputUp.add(idle, this);
 }
 
 function update() {
 
-    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || game.input.activePointer.isDown && game.input.activePointer.x < mySprite.x - 10)
     {
         walkLeft();
     }
-    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || game.input.activePointer.isDown && game.input.activePointer.x > mySprite.x + 10)
     {
         walkRight();
     }
@@ -101,7 +90,7 @@ function update() {
         console.log('In interaction zone!');
     }
 
-    // if (interactions = 5) {
+ // if (interactions = 5) {
     //     gameOver();
     // }
 }
@@ -109,6 +98,7 @@ function update() {
 function clickMe() {
     console.log('Clicked!');
 }
+
 function walkLeft() {
     mySprite.x -= 7;
     mySprite.animations.play('walk');
