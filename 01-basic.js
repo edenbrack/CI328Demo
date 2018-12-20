@@ -28,7 +28,6 @@ function preload() {
     room3 = game.load.image('rm3', 'images/background3.png');
     room4 = game.load.image('rm4', 'images/background4.png');
     
-    // Load relevant portion of spritesheet.
     game.load.spritesheet('character', 'images/sprite.png', 330, 600, 8);
     game.load.spritesheet('itm1', 'images/item1.png', 100, 120, 2);
     game.load.spritesheet('itm2', 'images/item2.png', 120, 120, 2);
@@ -40,7 +39,7 @@ function create() {
     startRoom = game.add.image(0, 0, 'rm1');
 
     item1 = game.add.sprite (193, 415, 'itm1');
-    item2 = game.add.sprite (1040, 38, 'itm2');
+    item2 = game.add.sprite (1000, 29, 'itm2');
     item3 = game.add.sprite (800, 530, 'itm3');
     item4 = game.add.sprite (1000, 210, 'itm4');
 
@@ -55,6 +54,8 @@ function create() {
     item2.frame = 0;
     item3.frame = 0;
     item4.frame = 0;
+
+    items[itemCount].events.onInputDown.add(interact, this);
 
     spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
@@ -85,7 +86,6 @@ function update() {
     }
 
     if (mySprite.x > items[itemCount].x - 50 && mySprite.x < items[itemCount].x + items[itemCount].width + 50) {
-    // if (mySprite.x > 500 && mySprite.x < 900) {
         spacebar.onDown.add(interact);
         console.log('In interaction zone!');
     }
