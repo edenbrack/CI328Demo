@@ -89,7 +89,7 @@ function update() {
         idle();
     }
 
-    if (mySprite.x >= 1800)
+    if (mySprite.x >= 1500)
     {
         nextRoom();
     }
