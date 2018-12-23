@@ -5,6 +5,8 @@ function main() {
 
 var mySprite;
 var count = 0;
+var solid;
+var button;
 var room1;
 var room2;
 var room3;
@@ -15,23 +17,30 @@ var item2;
 var item3;
 var item4;
 var items;
+var success;
 var dayCount = 1;
+var enter;
 var spacebar;
 var interactions = 0;
 var walkLeftButton;
 var walkRightButton;
 
 function preload() {
-    game.load.image('rm1', 'images/background1.png');
-    game.load.image('rm2', 'images/background2.png');
-    game.load.image('rm3', 'images/background3.png');
-    game.load.image('rm4', 'images/background4.png');
-    
-    game.load.spritesheet('character', 'images/sprite.png', 330, 600, 8);
-    game.load.spritesheet('itm1', 'images/item1.png', 100, 120, 2);
-    game.load.spritesheet('itm2', 'images/item2.png', 120, 120, 2);
-    game.load.spritesheet('itm3', 'images/item3.png', 80, 90, 2);
-    game.load.spritesheet('itm4', 'images/item4.png', 210, 600, 2);
+    game.load.image('rm1', 'assets/images/background1.png');
+    game.load.image('rm2', 'assets/images/background2.png');
+    game.load.image('rm3', 'assets/images/background3.png');
+    game.load.image('rm4', 'assets/images/background4.png');
+    game.load.image('sld', 'assets/images/solid.png');
+    game.load.image('button', 'assets/images/button.png');
+
+    game.load.spritesheet('sound', 'assets/images/sound.png', 100, 80, 2);
+    game.load.spritesheet('character', 'assets/images/sprite.png', 330, 600, 8);
+    game.load.spritesheet('itm1', 'assets/images/item1.png', 100, 120, 2);
+    game.load.spritesheet('itm2', 'assets/images/item2.png', 120, 120, 2);
+    game.load.spritesheet('itm3', 'assets/images/item3.png', 80, 90, 2);
+    game.load.spritesheet('itm4', 'assets/images/item4.png', 210, 600, 2);
+
+    game.load.audio('success', 'assets/audio/success.wav');
 }
 
 function create() {
@@ -47,10 +56,10 @@ function create() {
 
     rooms = [room1, room2, room3, room4];
 
-    item1 = game.add.sprite (193, 415, 'itm1');
-    item2 = game.add.sprite (1000, 29, 'itm2');
-    item3 = game.add.sprite (800, 530, 'itm3');
-    item4 = game.add.sprite (1000, 210, 'itm4');
+    item1 = game.add.sprite(193, 415, 'itm1');
+    item2 = game.add.sprite(1000, 29, 'itm2');
+    item3 = game.add.sprite(800, 530, 'itm3');
+    item4 = game.add.sprite(1000, 210, 'itm4');
 
     item1.visible = true;
     item2.visible = false;
@@ -67,12 +76,27 @@ function create() {
     items[count].inputEnabled = true;
     items[count].events.onInputDown.add(interact, this);
 
-    spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    sound = game.add.sprite(1270, 10, 'sound');
+    sound.inputEnabled = true;
+    sound.events.onInputDown.add(soundOnOff, this);
+
+    success = game.add.audio('success');
 
     mySprite = game.add.sprite(250, 200, 'character');
     mySprite.anchor.setTo(.5, 0);
     
     mySprite.animations.add('walk', [1, 2, 3, 4, 5, 6, 7, 8], 15, true);
+
+    solid = game.add.image(0, 0, 'sld');
+    document.getElementById('tallyText').style.display = 'none';
+
+    spacebar = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    enter = game.input.keyboard.addKey(Phaser.Keyboard.ENTER);
+
+    button = game.add.button(game.world.centerX - 100, 560, 'button', playState, this);
+    button.inputEnabled = true;
+    button.events.onInputDown.add(playState, this);
+    enter.onDown.add(playState);
 }
 
 function update() {
@@ -102,7 +126,7 @@ function update() {
     }
 
     if (interactions == 4) {
-        gameOver();
+        setTimeout(gameOver, 800);
     }
 }
 
@@ -140,7 +164,8 @@ function nextRoom() {
 function interact() {
         interactions++;
         items[count].frame = 1;
-        console.log('number of interactions: ' + interactions);
+        success.play();
+        document.getElementById('currentTally').innerHTML = interactions;
 }
 
 function timeLoop() {
@@ -166,6 +191,38 @@ function show() {
     mySprite.bringToTop();
 }
 
+function pauseState() {
+    document.getElementById('tallyText').style.display = 'none';
+    rooms[count].visible = false;
+    items[count].visible = false;
+    mySprite.visible = false;
+    game.paused = true;
+    solid.visible = true;
+}
+
 function gameOver() {
-    console.log ('It took you ' + dayCount + ' days to find all the ways you can be more present in your every day life. Thanks for getting involved in your own life. Hope you have had a good day!');
+    pauseState();
+    document.getElementById('gameOverText').innerHTML = ('It took you ' + dayCount + ' days to find all the ways you can be more present in your every day life. Thanks for getting involved in your own life. Hope you have had a good day!');
+}
+
+function playState() {
+    solid.visible = false;
+    button.visible = false;
+    document.getElementById('introText').style.display = 'none';
+    document.getElementById('tallyText').style.display = 'inline';
+    rooms[count].visible = true;
+    items[count].visible = true;
+    mySprite.visible = true;
+    game.paused = false;
+}
+
+function soundOnOff() {
+    if (sound.frame == 0) {
+        game.sound.mute = true; 
+        sound.frame = 1;
+    }
+    else if (sound.frame == 1) {
+        game.sound.mute = false;
+        sound.frame = 0;
+    }
 }

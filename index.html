@@ -4,12 +4,29 @@
     <meta charset="UTF-8">
     <script src="libs/phaser.min.js"></script>
     <script type="text/javascript" src="main.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet"> 
 </head>
 <body>
+	<div id="introText">
+		<h1>good day</h1>
+		<p>You have been challenged to discover things you can do to engage with the world around you in seemingly small ways that ultimately change a mundane day into a particularly good one.</p>
+		<p>Use L and R keys or click/touch on either sides of your character to move left or right.</p>
+		<p>Use spacebar near items or click the items directly to see if you can better them.</p>
+		<p>We hope you have a good day!</p>
+	</div>
+	
+	<div id="tallyText">
+		<p id="currentTally">0</p>
+		<p>/4 opportunities found</p>
+	</div>
 
-<script type="text/javascript">
-    window.onload = main;
-</script>
+	<div id="gameOverScreen">
+		<p id="gameOverText"></p>
+	</div>
+	<script type="text/javascript">
+	    window.onload = main;
+	</script>
 
 </body>
 </html>
