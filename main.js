@@ -130,10 +130,6 @@ function update() {
     }
 }
 
-function clickMe() {
-    console.log('Clicked!');
-}
-
 function walkLeft() {
     mySprite.x -= 7;
     mySprite.animations.play('walk');
@@ -150,6 +146,17 @@ function idle() {
     mySprite.frame = 2;
 }
 
+function soundOnOff() {
+    if (sound.frame == 0) {
+        game.sound.mute = true; 
+        sound.frame = 1;
+    }
+    else if (sound.frame == 1) {
+        game.sound.mute = false;
+        sound.frame = 0;
+    }
+}
+
 function nextRoom() {
     if (count <=2) {
         hide();
@@ -159,13 +166,6 @@ function nextRoom() {
     else {
         timeLoop();
     }
-}
-
-function interact() {
-        interactions++;
-        items[count].frame = 1;
-        success.play();
-        document.getElementById('currentTally').innerHTML = interactions;
 }
 
 function timeLoop() {
@@ -191,18 +191,11 @@ function show() {
     mySprite.bringToTop();
 }
 
-function pauseState() {
-    document.getElementById('tallyText').style.display = 'none';
-    rooms[count].visible = false;
-    items[count].visible = false;
-    mySprite.visible = false;
-    game.paused = true;
-    solid.visible = true;
-}
-
-function gameOver() {
-    pauseState();
-    document.getElementById('gameOverText').innerHTML = ('It took you ' + dayCount + ' days to find all the ways you can be more present in your every day life. Thanks for getting involved in your own life. Hope you have had a good day!');
+function interact() {
+        interactions++;
+        items[count].frame = 1;
+        success.play();
+        document.getElementById('currentTally').innerHTML = interactions;
 }
 
 function playState() {
@@ -216,13 +209,16 @@ function playState() {
     game.paused = false;
 }
 
-function soundOnOff() {
-    if (sound.frame == 0) {
-        game.sound.mute = true; 
-        sound.frame = 1;
-    }
-    else if (sound.frame == 1) {
-        game.sound.mute = false;
-        sound.frame = 0;
-    }
+function pauseState() {
+    document.getElementById('tallyText').style.display = 'none';
+    rooms[count].visible = false;
+    items[count].visible = false;
+    mySprite.visible = false;
+    game.paused = true;
+    solid.visible = true;
+}
+
+function gameOver() {
+    pauseState();
+    document.getElementById('gameOverText').innerHTML = ('It took you ' + dayCount + ' days to find all the ways you can be more present in your every day life. Thanks for getting involved in your own life. Hope you have had a good day!');
 }
