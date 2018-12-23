@@ -40,7 +40,7 @@ function preload() {
     game.load.spritesheet('itm3', 'assets/images/item3.png', 80, 90, 2);
     game.load.spritesheet('itm4', 'assets/images/item4.png', 210, 600, 2);
 
-    game.load.audio('success', 'assets/audio/success.wav');
+    game.load.audio('success', 'assets/sounds/success.wav');
 }
 
 function create() {
