@@ -54,6 +54,7 @@ function create() {
     room3.visible = false;
     room4.visible = false;
 
+    //Array of rooms created to dynamically hide/show each room as needed.
     rooms = [room1, room2, room3, room4];
 
     item1 = game.add.sprite(193, 415, 'itm1');
@@ -66,6 +67,7 @@ function create() {
     item3.visible = false;
     item4.visible = false;
 
+    //Array of items created to dynamically hide/show, place (because unlike the rooms, they each have different coordinates), and change frames of each item as needed. 
     items = [item1, item2, item3, item4];
 
     item1.frame = 0;
@@ -78,7 +80,7 @@ function create() {
 
     sound = game.add.sprite(1270, 10, 'sound');
     sound.inputEnabled = true;
-    sound.events.onInputDown.add(soundOnOff, this);
+    sound.events.onInputDown.add(soundControls, this);
 
     success = game.add.audio('success');
 
@@ -101,11 +103,12 @@ function create() {
 
 function update() {
 
-    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || game.input.activePointer.isDown && game.input.activePointer.x < mySprite.x - 10)
+    //I included an extra 50px away from the sprite's anchor for activePointer events so that she doesn't move if the user clicks her. 
+    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT) || game.input.activePointer.isDown && game.input.activePointer.x < mySprite.x - 50)
     {
         walkLeft();
     }
-    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || game.input.activePointer.isDown && game.input.activePointer.x > mySprite.x + 10)
+    else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT) || game.input.activePointer.isDown && game.input.activePointer.x > mySprite.x + 50)
     {
         walkRight();
     }
@@ -113,23 +116,20 @@ function update() {
         idle();
     }
 
+    //I set the cut off mark to 1500px rather than the expected 1800px (the width of the game) with the sprite's center anchor point in mind. This creates the most natural looking exit.
     if (mySprite.x >= 1500)
     {
         nextRoom();
     }
 
-    if (mySprite.x > items[count].x - 50 && mySprite.x < items[count].x + items[count].width + 50) {
-        spacebar.onDown.add(interact);
-    }
-    else {
-        spacebar.onDown.removeAll();
-    }
+    spacebarFunctionality();
 
+    //I delayed the fire of the gameOver function so that the user gets a chance to see the result of interacting with the final item.
     if (interactions == 4) {
         setTimeout(gameOver, 800);
     }
 }
-
+    //I flipped the sprite's x scale in order to horizontally reflect the spritesheet so that the sprite appears to be facing the left.
 function walkLeft() {
     mySprite.x -= 7;
     mySprite.animations.play('walk');
@@ -146,7 +146,7 @@ function idle() {
     mySprite.frame = 2;
 }
 
-function soundOnOff() {
+function soundControls() {
     if (sound.frame == 0) {
         game.sound.mute = true; 
         sound.frame = 1;
@@ -169,7 +169,6 @@ function nextRoom() {
 }
 
 function timeLoop() {
-    console.log ('Number of days gone by: ' + dayCount);
     dayCount++;
     hide();
     count=0;
@@ -184,20 +183,33 @@ function hide() {
 function show() {
     rooms[count].visible = true;
     items[count].visible = true;
-    items[count].bringToTop();
     items[count].inputEnabled = true;
     items[count].events.onInputDown.add(interact, this);
+    spacebarFunctionality();
     mySprite.x = 0;
-    mySprite.bringToTop();
 }
 
+//I included an extra 50px on each side of the items with the sprite's anchor point in mind - making it easier for the user to be in the correct place to use the spacebar.
+function spacebarFunctionality() {
+    if (mySprite.x > items[count].x - 50 && mySprite.x < items[count].x + items[count].width + 50) {
+        spacebar.onDown.add(interact);
+    }
+    else {
+        spacebar.onDown.removeAll();
+    }
+}
+
+//Here I keep track of the interactions which are fully accurate when using touch/clicks as I am able to disable input on each item after it's been touched/clicked. With the spacebar input, I struggled to get it to work only once per item. I have kept "spacebar.onDown.removeAll()" in the code to show what I think should have worked as a solution to the issue. 
 function interact() {
         interactions++;
         items[count].frame = 1;
         success.play();
         document.getElementById('currentTally').innerHTML = interactions;
+        items[count].inputEnabled = false;
+        // spacebar.onDown.removeAll();
 }
 
+//I made this function to display and play the game once the user has pressed play/enter.
 function playState() {
     solid.visible = false;
     button.visible = false;
@@ -209,6 +221,7 @@ function playState() {
     game.paused = false;
 }
 
+//I made this function to hide and stop the game once the user has completed the game.
 function pauseState() {
     document.getElementById('tallyText').style.display = 'none';
     rooms[count].visible = false;
@@ -218,6 +231,7 @@ function pauseState() {
     solid.visible = true;
 }
 
+//I put the entire gameOver string int the Javascript because the data needs to be inserted mid-sentence. 
 function gameOver() {
     pauseState();
     document.getElementById('gameOverText').innerHTML = ('It took you ' + dayCount + ' days to find all the ways you can be more present in your every day life. Thanks for getting involved in your own life. Hope you have had a good day!');
